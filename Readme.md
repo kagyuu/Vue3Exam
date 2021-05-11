@@ -175,3 +175,53 @@
     |```<button v-on:click.ctrl="onClick">A</button>```|not fire event|fire event|fire event|
     |```<button v-on:click.ctrl.exact="onClick">A</button>```|not fire event|fire event|not fire event|
     |```<button v-on:click.exact="onClick">A</button>```|fire event|not fire event|not fire event|
+
+## 02-3 [EventTiming](02_Basic&Core_EventTiming.html)
+
+    `
+    const app = Vue.createApp({
+        data() {
+            return {
+                firstName: '',
+                secondName: '',
+                count: 0,
+                message: '',
+            };
+        },
+        methods : {
+            send() {
+                this.count += 1;
+                this.message = "ACCUMELATED MESSAGE TO " + this.fullName + "(" + this.count + ").";
+            }
+        },
+        computed : {
+            // <p>Hello {{ fullName }} San!</p>
+            fullName() {
+                return this.firstName + ' ' + this.secondName;
+            }
+        },
+        watch: {
+            count(newValue, oldValue) {
+                if (newValue > 9) {
+                    this.count = 0;
+                    this.message = "SEND MESSAGE TO " + this.fullName + ".";
+                }
+            }
+        }
+    });
+
+    app.mount('#assignment')
+    `
+
+| app     | timing   | use case |
+| ------- | -------- | -------- |
+|app.data | when referenced DOM element changed |
+|app.method | when v-on event |
+|app.computed | when referenced app.data.* changed | combile individual data properties to one data property automatically|
+|app.watch | when referenced app.data.* changed | do something like ajax call or clear something when an individual property changed.|
+
+* [ANTIPATTERN]
+
+    Don't call mehods from a HTML like this : `<p> HELLO {method()}</p>`
+    This method() is called even when a data property that has no relation with this chaned.
+    In this case, we have to use app.computed insted of app.method. 
