@@ -225,3 +225,25 @@
     Don't call mehods from a HTML like this : `<p> HELLO {method()}</p>`
     This method() is called even when a data property that has no relation with this chaned.
     In this case, we have to use app.computed insted of app.method. 
+
+## 02-4 Synonyms of v-on/v-bind
+
+    `
+    <section id="assignment">
+      <h2>Event Timing</h2>
+      First : <input type="text" v-model="firstName"/>
+      Second : <input type="text" v-model="secondName"/>
+      <p>Hello {{ fullName }} San!</p>
+      <hr />
+      <!-- <button v-on:click="send">Send Message</button> -->
+      <button @click="send">Send Message</button>
+      <!-- <input type="text" v-bind:value="message" disabled="true" size="80"></input> -->
+      <input type="text" :value="message" disabled="true" size="80"></input>
+    </section>
+    `    
+
+| long format | synonym |
+| ----------- | ------- |
+| v-on:click  | @click  |
+| v-bind:value | :value |
+| v-model      | (no synonym) |
