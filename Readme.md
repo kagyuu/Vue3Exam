@@ -247,3 +247,48 @@
 | v-on:click  | @click  |
 | v-bind:value | :value |
 | v-model      | (no synonym) |
+
+## 02-5 Style Binindg
+
+* We can bind style and style-class on the HTML to the javascript object.
+* Vue.js entends style definition. We can define style as JS Object or JS Array.
+  * style on JS Object : {style1 : true/false, style2 : true/false, ...}
+  ```
+    <p :class="{user1:'user1'===input2
+      , user2:'user2'===input2
+      , visible: showParagraph
+      , hidden: !showParagraph}">aaa</p>
+  ```
+  * style on JS Array
+  ```
+    <p :class="[user1, 'visible']">aaa</p>
+  ```
+* It's convinent to use app.compute for define style-class because we don't have to manage events explicity. The app.compute automatically change style-class when relative variable changed.
+
+```
+const app = Vue.createApp({
+    data() {
+        return {
+            input1: 'user',
+            input2: 'user',
+            showParagraph: true
+        };
+    },
+    methods : {
+        btnClick(event) {
+            this.showParagraph = !this.showParagraph;
+        }
+    },
+    computed : {
+        message1class() {
+            return {
+                // class-name : switch(t/f), class-name : switch(t/f), ...
+                user1: "user1" === this.input1,
+                user2: "user2" === this.input1
+            }; // This is bound to ":class" attribute on the HTML template.
+        }
+    },
+    watch: {
+    }
+}); 
+``````
