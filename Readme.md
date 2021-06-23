@@ -292,3 +292,56 @@ const app = Vue.createApp({
     }
 }); 
 ``````
+## 03 Loop and IfElse
+
+````
+    <section id="assignment">
+      <h2>Assignment</h2>
+      <!-- 1) Add code to manage a list of tasks in a Vue app -->
+      <!-- When clicking "Add Task" a new task with the entered text should be added -->
+      <input type="text" v-model="task">
+      <button @click="addTask">Add Task</button>
+
+      <p>There are {{ tasks.length }} tasks.</p>
+
+      <ul v-show="showTasks">
+        <!-- 2) Output the list of tasks here -->
+        <li v-for="(item, idx) in tasks" :key="item.id">
+          {{idx}} - {{item.name}} - {{item.id}}
+          <button @click="deleteTask(idx);">Delete</button>
+        </li>
+      </ul>
+      
+      <!-- 3) When the below button is pressed, the list should be shown or hidden -->
+      <!-- BONUS: Also update the button caption -->
+      <div v-if="showTasks">
+        <button @click="toggleTasklist(false);">Hide List</button>
+      </div>
+      <div v-else>
+        <button @click="toggleTasklist(true);">Show List</button>
+      </div>
+    </section>
+````
+* &lt;v-for="(item, idx) in tasks" :key="item.id"&gt;`
+  * tasks is Array() in Javascript.
+  * idx is omittable.
+  * ":key" is recomennded. If there is no ":key", Vue.js rebuild whole DOM structure when tasks was changed. If ":key" specified, Vue.js will delete or add only DOMs that is relate with changed rows of tasks.
+  * "v-for" also handle key-value object, {key1:val1, key2:val2, ... }. like v-for="(key, val) in object".
+* v-if, v-else-if, v-else
+    ```
+    <div v-if="condition1">
+    </div>
+    <div v-else-if="condition2">
+    </div>
+    <div v-else>
+    </div>
+    ```
+* &lt;ul v-show="showTasks"&gt;
+  * v-show is similar with v-if
+  * v-show will add or remove style "display:none"
+  * Oppositly, v-if will manipluate DOMs.
+  * v-show is faster than v-if.
+
+## 04
+
+
