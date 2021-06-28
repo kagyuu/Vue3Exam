@@ -342,6 +342,80 @@ const app = Vue.createApp({
   * Oppositly, v-if will manipluate DOMs.
   * v-show is faster than v-if.
 
-## 04
+## 05 Lifecycle
 
+* We can write page initializing process on created(), such as an ajax access.
+* The lifecycle is one of key concepts of vue's component structure.
+`
+```
+const app = Vue.createApp({
+    data() {
+        return {
+            message : '',
+            logs : new Array()
+        };
+    },
+    methods : {
+        btnClicked(event) {
+            this.message = "Clciked";
+            console.dir(event.target);
+            console.dir(this.$refs.spnMessage);
+        }
+    },
+    computed : {
+    },
+    watch: {
+    },
+    beforeCreate() {
+        console.log("before create");
 
+        // To access this would be an error because app object would not initialized in this life-cycle.
+        // this.logs.push("beforeMount");
+    },
+    created() {
+        console.log("created");
+        this.logs.push("created");
+    },
+    beforeMount() {
+        console.log("before mount");
+        this.logs.push("beforeMount");
+    },
+    mounted() {
+        console.log("mounted");
+        this.logs.push("mounted");
+    },
+    beforeUpdate() {
+        console.log("before update");
+    },
+    updated() {
+        console.log("updated");
+    }
+
+});
+
+app.mount('#app');
+```
+## 05 How to access a raw DOM on vue's js logic.
+
+* HTML
+```
+<span ref="spnMessage">{{ message }}</span>
+```
+* JS
+```
+console.dir(this.$refs.spnMessage);
+```
+* this.$refs.{{ name }}  is the raw HTML DOM Object.
+
+* note: The event handling method also be able to get the raw evnet object and the event soruce.
+The event.target is a DOM of &lt;button&gt;, for example.
+```
+    methods : {
+        btnClicked(event) {
+            this.message = "Clciked";
+            console.dir(event.target);
+            console.dir(this.$refs.spnMessage);
+        }
+    },
+```
+```
