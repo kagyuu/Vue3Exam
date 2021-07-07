@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="06_Component.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="06_Component.js" defer></script>    
+    <title>05_LifecycleAndRef</title>
+</head>
+<body>
+    <section id="app">
+        <input v-model="message"/>
+        <button @click="btnClicked">Clear</button>
+
+        <ten-key :title="componentTitle" @update-keypad="onUpdateKeypad"></ten-key>
+    </section>
+</body>
+</html>

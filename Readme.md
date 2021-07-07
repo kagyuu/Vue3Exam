@@ -418,4 +418,35 @@ The event.target is a DOM of &lt;button&gt;, for example.
         }
     },
 ```
-```
+## 06 Component
+
+
+## 07 Vue CLI
+* https://cli.vuejs.org/
+* install
+  1. install node.js
+        ```
+        $ sudo apt install nodejs npm
+        $ node -v
+        v10.24.0
+        ```
+  1. Oh! It's too old. Uninstall them.
+        ```
+        $ sudo apt purge -y nodejs npm
+        $ sudo apt autoremove
+        ```
+  1. Install node.js again. cf. https://github.com/nodesource/distributions/blob/master/README.md#deb
+        ```
+        $ sudo -s
+        # curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
+        # apt-get install -y nodejs
+        # exit
+        $  node -v
+        v14.17.2
+        ```
+  1. install vue cli
+        ```
+        $ sudo npm install -g @vue/cli
+        $ vue --version
+        @vue/cli 4.5.13
+        ```
