@@ -420,7 +420,128 @@ The event.target is a DOM of &lt;button&gt;, for example.
 ```
 ## 06 Component
 
+* HTML
+    ```
+    <section id="app">
+        <input v-model="message"/>
+        <button @click="btnClicked">Clear</button>
 
+        <ten-key :title="componentTitle" @update-keypad="onUpdateKeypad"></ten-key>
+    </section>
+    ```
+    * The &lt;ten-key&gt; is my component.
+    * Data Communication between the parent component and the child component.
+        * Parent to Child : v-bind:title (eq. :title)
+        * Child to Parent : custome event v-on:update-keypad (eq. @update-keypad)
+* JS
+    ```
+    const app = Vue.createApp({
+        data() {
+            return {
+                message : '',
+                componentTitle : '10KEY PAD'
+            };
+        },
+        methods : {
+            btnClicked(event) {
+                this.message = "";
+                this.componentTitle = "10KEY PAD";
+            },
+            onUpdateKeypad(keyno) {
+                switch (keyno) {
+                    case -1:
+                        this.message += ".";
+                        break;
+                    case -2:
+                        this.message = this.message.slice(0, -1);
+                        break;
+                    default:
+                        this.message += keyno;
+                        break;
+                }
+                this.componentTitle = "INPUT AMOUNT";
+            }
+        }
+    });
+
+    app.component('ten-key',{
+        props: ['title'],
+        template : `
+        <table class="ten-key">
+        <caption>{{ title }}</caption>
+        <tr>
+            <td><button @click="keypad(7)">7</button></td>
+            <td><button @click="keypad(8)">8</button></td>
+            <td><button @click="keypad(9)">9</button></td>
+        </tr>
+        <tr>
+            <td><button @click="keypad(4)">4</button></td>
+            <td><button @click="keypad(5)">5</button></td>
+            <td><button @click="keypad(6)">6</button></td>
+        </tr>
+        <tr>
+            <td><button @click="keypad(1)">1</button></td>
+            <td><button @click="keypad(2)">2</button></td>
+            <td><button @click="keypad(3)">3</button></td>
+        </tr>
+        <tr>
+            <td><button @click="keypad(0)">0</button></td>
+            <td><button @click="keypad(-1)">.</button></td>
+            <td><button @click="keypad(-2)">DEL</button></td>
+        </tr>
+        </table>
+        `,
+        data() {
+            return {
+            };
+        },
+        methods : {
+            keypad(no) {
+                // occur custom event 'update-keypad'
+                this.$emit('update-keypad', no);
+                // We can access 'title' in the props
+                // like as data properties.
+                console.log(this.title);
+            }
+        },
+        watch: {
+            title(newValue, oldValue) {
+                console.log("title was changed");
+            }
+        }
+    });
+
+    app.mount('#app');    
+    ```
+    * The component is a child object of app. 
+        ```
+        const app = Vue.createApp({});
+        app.component('ten-key',{});
+        app.mount('#app');
+        ```
+    * How do the child component get a data form the parent?
+        ```
+        app.component('ten-key',{
+            props: ['title'],
+            ...
+        }
+        ``` 
+        The variable title can be used as data().
+    * How do the child send a data to the parent?
+        ```
+        this.$emit('update-keypad', no);
+        ```
+        * the 'update-keypad' is a custome event name.
+        * the second argument is a data.
+        * the parent can treat the custome event 'update-keypad' as vanila DOM event.
+    * How do the child detect the data of the parent. -> Use 'watch' property of the component.
+        ```
+        watch: {
+            title(newValue, oldValue) {
+                console.log("title was changed");
+            }
+        }
+        ```
 ## 07 Vue CLI
 * https://cli.vuejs.org/
 * install
