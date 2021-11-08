@@ -557,13 +557,14 @@ The event.target is a DOM of &lt;button&gt;, for example.
         $ sudo apt autoremove
         ```
   1. Install node.js again. cf. https://github.com/nodesource/distributions/blob/master/README.md#deb
+     Even versions (14,16,18...) are LTS. Odd versions (15,17,19...) are experimental releases.
         ```
         $ sudo -s
-        # curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
+        # curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
         # apt-get install -y nodejs
         # exit
         $  node -v
-        v14.17.2
+        v16.13.0
         ```
   1. install vue cli
         ```
